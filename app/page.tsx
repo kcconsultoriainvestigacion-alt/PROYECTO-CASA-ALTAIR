@@ -88,6 +88,8 @@ function Filters({ profession, specialty, role, setProfession, setSpecialty, set
 }
 
 export default function Home() {
+  const [showIntro, setShowIntro] = useState(true);
+  const [introLeaving, setIntroLeaving] = useState(false);
   const [query, setQuery] = useState('');
   const [profession, setProfession] = useState('');
   const [specialty, setSpecialty] = useState('');
@@ -106,6 +108,19 @@ export default function Home() {
 
   const uniqueAreas = new Set(members.flatMap((member) => member.areas)).size;
   const clearFilters = () => { setProfession(''); setSpecialty(''); setRole(''); setQuery(''); setVisibleCount(8); };
+
+  const enterSite = () => {
+    setIntroLeaving(true);
+    window.setTimeout(() => {
+      setShowIntro(false);
+      document.getElementById('inicio')?.scrollIntoView({ behavior: 'auto' });
+    }, 700);
+  };
+
+  useEffect(() => {
+    document.body.style.overflow = showIntro ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [showIntro]);
 
   useEffect(() => {
     const context = document.modelContext;
@@ -153,9 +168,22 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
+    <>
+      {showIntro && (
+        <section className={introLeaving ? 'intro-cover intro-cover-leaving' : 'intro-cover'} aria-label="Portada de Casa Altair">
+          <div className="intro-stars" aria-hidden="true"><i /><i /><i /><i /><i /></div>
+          <div className="intro-orbit intro-orbit-one" aria-hidden="true" /><div className="intro-orbit intro-orbit-two" aria-hidden="true" />
+          <div className="intro-cover-content">
+            <div className="intro-logo-wrap"><div className="intro-logo-glow" /><Image src="/casa-altair-logo.png" alt="Logo oficial de Casa Altair" fill priority sizes="(max-width: 700px) 74vw, 420px" /></div>
+            <div className="intro-title"><span>CLUB EQUILIBRIA 360 PRESENTA</span><h1>CASA ALTAIR</h1><p>Observamos más lejos para decidir mejor.</p></div>
+            <button className="enter-button" onClick={enterSite}>Entrar a la experiencia <ArrowRight size={19} /></button>
+            <small className="intro-hint">Conoce al equipo que convirtió conocimiento en una solución</small>
+          </div>
+        </section>
+      )}
+      <main className={showIntro ? 'site-content site-behind-cover' : 'site-content site-entered'} aria-hidden={showIntro}>
       <header className="site-header">
-        <a className="brand" href="#inicio" aria-label="Casa Altair, inicio"><span className="brand-mark"><Compass size={20} /></span><span><strong>CASA ALTAIR</strong><small>CLUB EQUILIBRIA 360</small></span></a>
+        <a className="brand" href="#inicio" aria-label="Casa Altair, inicio"><span className="brand-logo"><Image src="/casa-altair-logo.png" alt="" width={42} height={42} /></span><span><strong>CASA ALTAIR</strong><small>CLUB EQUILIBRIA 360</small></span></a>
         <nav className="desktop-nav" aria-label="Navegación principal">{navItems.map(([label, href]) => <a key={href} href={href}>{label}</a>)}</nav>
         <a className="nav-cta" href="#equipo">Conoce al equipo</a>
         <Sheet><SheetTrigger render={<Button className="menu-button" variant="ghost" size="icon" aria-label="Abrir menú" />}><Menu /></SheetTrigger>
@@ -163,7 +191,7 @@ export default function Home() {
         </Sheet>
       </header>
 
-      <section className="hero" id="inicio"><div className="hero-orb hero-orb-one" /><div className="hero-orb hero-orb-two" /><div className="hero-grid"><div className="hero-copy"><div className="eyebrow"><Sparkles size={15} /> CLUB EQUILIBRIA 360 · CASA ALTAIR</div><h1>Conoce al equipo <span>detrás del proyecto</span></h1><p className="hero-lead">Talento, conocimiento, investigación y tecnología trabajando juntos para transformar ideas en soluciones.</p><div className="hero-actions"><a className="primary-button" href="#equipo">Explorar equipo <ArrowDownRight size={18} /></a><span className="hero-quote">“Observamos más lejos<br /> para decidir mejor.”</span></div></div><div className="hero-visual"><Image src="/altair-hero.jpeg" alt="Emblema dorado de Casa Altair con águila y tonos violeta" fill priority sizes="(max-width: 900px) 92vw, 42vw" /><div className="hero-visual-label"><span>Una comunidad</span><strong>con visión estratégica</strong></div></div></div></section>
+      <section className="hero" id="inicio"><div className="hero-orb hero-orb-one" /><div className="hero-orb hero-orb-two" /><div className="hero-grid"><div className="hero-copy"><div className="eyebrow"><Sparkles size={15} /> CLUB EQUILIBRIA 360 · CASA ALTAIR</div><h1>Conoce al equipo <span>detrás del proyecto</span></h1><p className="hero-lead">Talento, conocimiento, investigación y tecnología trabajando juntos para transformar ideas en soluciones.</p><div className="hero-actions"><a className="primary-button" href="#equipo">Explorar equipo <ArrowDownRight size={18} /></a><span className="hero-quote">“Observamos más lejos<br /> para decidir mejor.”</span></div><nav className="hero-section-nav" aria-label="Explorar contenido"><a href="#equipo"><Users /><span><small>01</small>Profesionales</span><ArrowRight /></a><a href="#proyecto"><Compass /><span><small>02</small>Proyecto</span><ArrowRight /></a><a href="#participacion"><Check /><span><small>03</small>Participación</span><ArrowRight /></a><a href="#contacto"><MessageCircle /><span><small>04</small>Contacto</span><ArrowRight /></a></nav></div><div className="hero-visual hero-logo-visual"><Image src="/casa-altair-logo.png" alt="Logo oficial de Casa Altair" fill priority sizes="(max-width: 900px) 92vw, 42vw" /><div className="hero-visual-label"><span>Una comunidad</span><strong>con visión estratégica</strong></div></div></div></section>
 
       <section className="intro-section"><div className="section-kicker">Nuestra esencia</div><div className="intro-layout"><h2>Somos<br /><span>Casa Altair</span></h2><div><p>Casa Altair reúne profesionales y estudiantes con distintas experiencias y especialidades que comparten una visión orientada al análisis, la investigación, la innovación y la identificación de oportunidades.</p><div className="pillars"><span>Comunidad</span><span>Conocimiento</span><span>Oportunidades</span><span>Colaboración</span></div></div></div></section>
 
@@ -181,9 +209,10 @@ export default function Home() {
 
       <section className="contact-section" id="contacto"><div className="contact-glow" /><div className="contact-inner"><div className="section-kicker">Networking con propósito</div><h2>Conecta con<br />nuestro equipo</h2><p>Casa Altair es una comunidad orientada al conocimiento, la investigación, la innovación y la generación de nuevas oportunidades profesionales.</p><div className="contact-actions"><a className="primary-button" href="#equipo">Explorar perfiles <Users size={18} /></a><a className="secondary-button" href="#equipo">Conectar <ArrowRight size={18} /></a></div></div></section>
 
-      <footer><div className="footer-brand"><span className="brand-mark"><Compass size={20} /></span><div><strong>CLUB EQUILIBRIA 360</strong><span>CASA ALTAIR</span></div></div><div className="footer-quote">“Observamos más lejos para decidir mejor.”<small>ANÁLISIS · INVESTIGACIÓN · ESTRATEGIA</small></div><p>© 2026 Club Equilibria 360 – Casa Altair</p></footer>
+      <footer><div className="footer-brand"><span className="footer-logo"><Image src="/casa-altair-logo.png" alt="Logo de Casa Altair" width={54} height={54} /></span><div><strong>CLUB EQUILIBRIA 360</strong><span>CASA ALTAIR</span></div></div><div className="footer-quote">“Observamos más lejos para decidir mejor.”<small>ANÁLISIS · INVESTIGACIÓN · ESTRATEGIA</small></div><p>© 2026 Club Equilibria 360 – Casa Altair</p></footer>
 
       <Dialog open={!!selectedMember} onOpenChange={(open) => !open && setSelectedMember(null)}>{selectedMember && <DialogContent className="profile-dialog"><div className="profile-sidebar"><MemberPhoto member={selectedMember} large /><div className="profile-location"><MapPin size={15} /> {selectedMember.ciudad}</div></div><div className="profile-content"><DialogHeader><div className="profile-eyebrow">PERFIL PROFESIONAL · CASA ALTAIR</div><DialogTitle>{selectedMember.nombre}</DialogTitle><DialogDescription>{selectedMember.profesion} · {selectedMember.especialidad}</DialogDescription></DialogHeader><div className="profile-facts"><div><GraduationCap /><span>Grado académico<strong>{selectedMember.grado}</strong></span></div><div><BriefcaseBusiness /><span>Cargo actual<strong>{selectedMember.cargo}</strong><small>{selectedMember.empresa}</small></span></div><div><Compass /><span>Experiencia<strong>{selectedMember.experiencia}</strong></span></div></div><section className="about"><h3>Sobre mí</h3><p>{selectedMember.perfil}</p></section><section><h3>Áreas de experiencia</h3><div className="chips">{selectedMember.areas.map((area) => <span key={area}>{area}</span>)}</div></section><section className="project-contribution"><span>Mi participación en el proyecto</span><div className="chips role-chips">{selectedMember.rolesProyecto.map((item) => <span key={item}><Check size={12} /> {item}</span>)}</div><p>{selectedMember.aporteProyecto}</p></section><div className="profile-actions">{selectedMember.cv && <a href={selectedMember.cv} target="_blank" rel="noreferrer"><ExternalLink /> Ver CV</a>}{selectedMember.linkedin && <a href={selectedMember.linkedin} target="_blank" rel="noreferrer"><Link2 /> LinkedIn</a>}{selectedMember.autorizaContacto && selectedMember.whatsapp && <a className="whatsapp" href={`https://wa.me/${selectedMember.whatsapp}?text=${encodeURIComponent(`Hola ${selectedMember.nombre}, conocí tu perfil a través del proyecto de Casa Altair – Club Equilibria 360 y me gustaría ponerme en contacto contigo.`)}`} target="_blank" rel="noreferrer"><MessageCircle /> Contactar por WhatsApp</a>}</div></div></DialogContent>}</Dialog>
-    </main>
+      </main>
+    </>
   );
 }
