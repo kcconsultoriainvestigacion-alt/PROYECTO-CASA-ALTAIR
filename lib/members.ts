@@ -1,0 +1,198 @@
+export type Member = {
+  id: number;
+  nombre: string;
+  profesion: string;
+  grado: string;
+  especialidad: string;
+  ciudad: string;
+  empresa: string;
+  cargo: string;
+  experiencia: string;
+  perfil: string;
+  foto: string;
+  linkedin?: string;
+  cv?: string;
+  whatsapp?: string;
+  autorizaContacto: boolean;
+  areas: string[];
+  rolesProyecto: string[];
+  aporteProyecto: string;
+};
+
+const driveImage = (id: string) => `https://drive.google.com/thumbnail?id=${id}&sz=w800`;
+
+export const members: Member[] = [
+  {
+    id: 1,
+    nombre: 'Samantha I. Chambergo Colona',
+    profesion: 'Ingeniera Industrial',
+    grado: 'Doctorado en curso',
+    especialidad: 'Seguridad y Salud en el Trabajo',
+    ciudad: 'Trujillo',
+    empresa: 'Consultora Strateguis',
+    cargo: 'Ingeniera Industrial',
+    experiencia: '7 años',
+    perfil: 'Ingeniera Industrial con experiencia en seguridad y salud en el trabajo en entidades públicas.',
+    foto: driveImage('1_tC9yHWFNJtVvbljEAVsprcyjoCqurF4'),
+    whatsapp: '51979767229',
+    autorizaContacto: true,
+    areas: ['Seguridad y Salud en el Trabajo'],
+    rolesProyecto: ['Validación y pruebas'],
+    aporteProyecto: 'Acompañamiento profesional y revisión del proyecto desde su experiencia en seguridad y salud en el trabajo.',
+  },
+  {
+    id: 2,
+    nombre: 'Alexander Guizado Tarco',
+    profesion: 'Ingeniero Ambiental',
+    grado: 'Profesional titulado',
+    especialidad: 'Gestión y evaluación ambiental',
+    ciudad: 'Cusco',
+    empresa: 'Ministerio de Vivienda',
+    cargo: 'Especialista Ambiental',
+    experiencia: '4 años',
+    perfil: 'Profesional con experiencia en gestión ambiental y administración pública, especializado en evaluación y gestión de proyectos, instrumentos de gestión y monitoreos ambientales.',
+    foto: driveImage('1c4MRIq2GurjBZ9x8IXaY8kSED36GdgEF'),
+    whatsapp: '51994602076',
+    autorizaContacto: true,
+    areas: ['Medio ambiente', 'Seguridad y Salud', 'Residuos sólidos', 'Docencia', 'Consultoría'],
+    rolesProyecto: ['Investigación', 'Análisis de información'],
+    aporteProyecto: 'Análisis de información y aporte de criterios de gestión ambiental para la construcción de la solución.',
+  },
+  {
+    id: 3,
+    nombre: 'Keissy Marita Siviruero Regalado',
+    profesion: 'Ingeniera Ambiental',
+    grado: 'Bachiller',
+    especialidad: 'Asesoría de proyectos de investigación ambiental',
+    ciudad: 'Tingo María',
+    empresa: 'KC Consultoría e Investigación',
+    cargo: 'Gerente General',
+    experiencia: '3 años',
+    perfil: 'Bachiller en Ingeniería Ambiental apasionada por la investigación y el análisis, con experiencia en asesoría metodológica y una visión orientada al crecimiento profesional continuo.',
+    foto: driveImage('1X_vZZWHsceWp_iIvkKJnaVh9f3Njqmei'),
+    linkedin: 'https://www.linkedin.com/in/keissy-siviruero/',
+    whatsapp: '51927477091',
+    autorizaContacto: true,
+    areas: ['Seguridad y Salud', 'Tratamiento de aguas', 'Residuos sólidos', 'Investigación', 'Consultoría', 'Sostenibilidad'],
+    rolesProyecto: ['Coordinación', 'Investigación'],
+    aporteProyecto: 'Coordinación del trabajo colaborativo y acompañamiento metodológico durante la investigación y desarrollo del proyecto.',
+  },
+  {
+    id: 4,
+    nombre: 'Guillermo Arturo Alvarez Begazo',
+    profesion: 'Ingeniero Industrial',
+    grado: 'Profesional titulado',
+    especialidad: 'Gestión Ambiental',
+    ciudad: 'La Perla, Callao',
+    empresa: 'Municipalidad Distrital de La Perla',
+    cargo: 'Especialista Administrativo en Gestión Ambiental',
+    experiencia: '8 años en gestión ambiental',
+    perfil: 'Profesional con trayectoria en operaciones y administración. Especialista en gestión de residuos sólidos municipales, gestión pública e instrumentos de planificación ambiental.',
+    foto: driveImage('1uVw2Fal3qKQIx2v_LXSdcGaVKgIE--9C'),
+    linkedin: 'https://www.linkedin.com/in/arturo-alvarez-begazo-958b52297',
+    whatsapp: '51941612464',
+    autorizaContacto: true,
+    areas: ['Medio ambiente', 'Residuos sólidos', 'Sostenibilidad', 'Cambio climático', 'Economía circular', 'Gestión pública'],
+    rolesProyecto: ['Análisis de información', 'Validación'],
+    aporteProyecto: 'Revisión técnica y aporte de experiencia en gestión pública e instrumentos de gestión ambiental.',
+  },
+  {
+    id: 5,
+    nombre: 'Luciano Julián Sarmiento Ramos',
+    profesion: 'Ingeniero Ambiental',
+    grado: 'Bachiller',
+    especialidad: 'Gestión pública ambiental',
+    ciudad: 'Lima',
+    empresa: 'Municipalidad de Santa María del Mar',
+    cargo: 'Promotor ambiental',
+    experiencia: '1 año',
+    perfil: 'Bachiller en Ingeniería Ambiental con experiencia en gestión pública, monitoreo ambiental, residuos sólidos y consultoría. Maneja ArcGIS Pro, QGIS, Excel y Power BI.',
+    foto: driveImage('1st3mp4_oDUr3_qa7ijiEYdl8a5fWskj5'),
+    linkedin: 'https://www.linkedin.com/in/luciano-sarmiento',
+    whatsapp: '51989651011',
+    autorizaContacto: true,
+    areas: ['Medio ambiente', 'Tratamiento de aguas', 'Residuos sólidos', 'Consultoría', 'Economía circular', 'Gestión pública'],
+    rolesProyecto: ['Investigación', 'Documentación'],
+    aporteProyecto: 'Investigación de fuentes, organización de información y apoyo en la documentación técnica del proyecto.',
+  },
+  {
+    id: 6,
+    nombre: 'Miluska Jazmin Navio Aquino',
+    profesion: 'Ingeniera Ambiental',
+    grado: 'Bachiller',
+    especialidad: 'Gestión del Riesgo de Desastres',
+    ciudad: 'Lima',
+    empresa: 'Municipalidad Metropolitana de Lima',
+    cargo: 'Operadora del Módulo de Monitoreo y Análisis',
+    experiencia: '1 año',
+    perfil: 'Profesional con experiencia en gestión del riesgo de desastres, monitoreo de peligros y análisis de información para identificar escenarios de riesgo y elaborar reportes técnicos.',
+    foto: driveImage('1dP7iYvFrMW9WTqlzi3AMflPJlX0QbxtL'),
+    linkedin: 'https://www.linkedin.com/in/mnavioa/',
+    whatsapp: '51992001270',
+    autorizaContacto: true,
+    areas: ['Medio ambiente', 'Residuos sólidos', 'Sostenibilidad', 'Gestión del riesgo'],
+    rolesProyecto: ['Análisis de información', 'Monitoreo'],
+    aporteProyecto: 'Análisis y organización de información para apoyar la toma de decisiones y la validación de resultados.',
+  },
+  {
+    id: 7,
+    nombre: 'Edwin Wilberto Balcazar Ullilén',
+    profesion: 'Industrias Alimentarias',
+    grado: 'Bachiller',
+    especialidad: 'Inspección y calidad alimentaria',
+    ciudad: 'Lima',
+    empresa: 'GILCSAC',
+    cargo: 'Inspector',
+    experiencia: '10 años',
+    perfil: 'Profesional en Industrias Alimentarias con conocimiento en inspección de establecimientos, buenas prácticas de manufactura, HACCP e inspección de lotes por muestreo.',
+    foto: driveImage('1C241aiG0W2K2yrJaYCkzvFp03oYDku98'),
+    linkedin: 'https://www.linkedin.com/in/edwin-w-balcazar-ullil%C3%A9n-b5a462281/',
+    whatsapp: '51999054724',
+    autorizaContacto: true,
+    areas: ['Industria', 'Calidad', 'Inocuidad alimentaria'],
+    rolesProyecto: ['Validación y pruebas', 'Calidad'],
+    aporteProyecto: 'Revisión de consistencia y calidad desde su experiencia en procesos de inspección y validación.',
+  },
+  {
+    id: 8,
+    nombre: 'Elsy Melina Malpartida Carhuaz',
+    profesion: 'Ingeniera Ambiental',
+    grado: 'Bachiller',
+    especialidad: 'Gestión Ambiental',
+    ciudad: 'Pasco',
+    empresa: 'Profesional independiente',
+    cargo: 'Ingeniera Ambiental',
+    experiencia: 'Experiencia inicial',
+    perfil: 'Bachiller en Ingeniería Ambiental con experiencia en gestión ambiental y SSOMA en operaciones mineras, monitoreo de agua y ruido, residuos sólidos y control documentario.',
+    foto: driveImage('1cynvma35iy-5Qa8TLOfOCFENZYajcj41'),
+    linkedin: 'https://www.linkedin.com/in/elsy-malparcar',
+    whatsapp: '51918246429',
+    autorizaContacto: true,
+    areas: ['Medio ambiente', 'Tratamiento de aguas', 'Minería', 'Consultoría', 'Calidad', 'Sostenibilidad', 'Economía circular'],
+    rolesProyecto: ['Investigación', 'Documentación'],
+    aporteProyecto: 'Apoyo en investigación y revisión de contenidos ambientales, SSOMA y control documentario.',
+  },
+  {
+    id: 9,
+    nombre: 'Tomas Felix Alata Fernandez',
+    profesion: 'Ingeniero Químico',
+    grado: 'Profesional titulado',
+    especialidad: 'Operaciones y medio ambiente',
+    ciudad: 'Arequipa',
+    empresa: 'CORMOQUEA EIRL',
+    cargo: 'Supervisor de Operaciones',
+    experiencia: '15 años',
+    perfil: 'Ingeniero Químico con experiencia en operaciones, logística y gestión administrativa en los sectores público y privado, con capacidad de liderazgo y trabajo en equipo.',
+    foto: driveImage('1L1q9lm1a9fKD6kAXV5WcsDL33TsgGzUS'),
+    linkedin: 'https://www.linkedin.com/in/tomas-alata-5a8b6866',
+    whatsapp: '51982073735',
+    autorizaContacto: true,
+    areas: ['Medio ambiente', 'Seguridad y Salud', 'SSOMA-HSE', 'Ingeniería Química', 'Residuos sólidos', 'Minería', 'Economía circular'],
+    rolesProyecto: ['Gestión del proyecto', 'Validación'],
+    aporteProyecto: 'Aporte de experiencia operativa para la revisión de procesos, viabilidad y validación de la solución.',
+  },
+];
+
+export const professions = [...new Set(members.map((member) => member.profesion))].sort();
+export const specialties = [...new Set(members.map((member) => member.especialidad))].sort();
+export const projectRoles = [...new Set(members.flatMap((member) => member.rolesProyecto))].sort();
