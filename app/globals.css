@@ -82,3 +82,101 @@ footer { padding:46px max(20px,calc((100% - 1180px)/2)); display:grid; grid-temp
 .profile-photo { border:1px solid rgba(222,180,78,.82); box-shadow:0 24px 48px rgba(0,0,0,.3),0 0 0 5px rgba(216,173,80,.1); }
 .profile-photo:after { content:''; position:absolute; z-index:2; inset:8px; pointer-events:none; border:1px solid rgba(255,255,255,.36); border-radius:11px 11px 64px 11px; }
 @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*:before,*:after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
+
+/* Keep grid and flex content within narrow viewports. */
+.hero-grid > *, .intro-layout > *, .section-heading > *,
+.search-box, .search-box input, .member-card, .project-copy > *,
+.participation-card > div, footer > *, .profile-content,
+.profile-facts > div, .profile-facts span { min-width:0; }
+.member-meta, .profile-content, .profile-location, .footer-brand,
+.participation-card, .contact-inner { overflow-wrap:anywhere; }
+.search-box > svg, .search-box button, .profile-facts svg,
+.profile-actions svg, .role-chips svg { flex-shrink:0; }
+.filters-row [data-slot=native-select-wrapper] { max-width:100%; }
+.chips span, .profile-actions a { max-width:100%; white-space:normal; }
+.profile-dialog { grid-template-columns:minmax(0,330px) minmax(0,1fr); max-height:calc(100dvh - 30px); overscroll-behavior:contain; }
+.profile-dialog > [data-slot=dialog-close] { z-index:4; top:12px; right:12px; width:44px; height:44px; color:#425876; background:rgba(255,255,255,.95); }
+.intro-cover { min-height:0; height:100dvh; overflow-y:auto; }
+.intro-cover-content { margin-block:auto; padding-block:24px; flex-shrink:0; }
+.enter-button { flex-shrink:0; }
+
+@media (max-width:1020px) {
+  .menu-button { display:block; }
+  .hero-grid { gap:32px; }
+}
+@media (min-width:761px) and (max-width:1020px) {
+  .hero h1 { font-size:clamp(42px,5.5vw,58px); }
+  .hero-actions { flex-wrap:wrap; }
+  .intro-layout { gap:32px; }
+  .profile-dialog { grid-template-columns:minmax(0,260px) minmax(0,1fr); }
+  .profile-content { padding:32px 24px; }
+  .profile-facts { grid-template-columns:minmax(0,1fr); }
+}
+@media (max-width:760px) {
+  /* Tailwind uses the independent translate property; transform:none does not reset it. */
+  .profile-dialog { translate:none; grid-template-columns:minmax(0,1fr); grid-template-rows:max-content max-content; max-height:calc(100dvh - 24px); }
+  .profile-content { padding-bottom:max(32px,env(safe-area-inset-bottom)); }
+  .profile-location { max-width:calc(100% - 60px); }
+  .search-box [data-slot=input], .filters-row [data-slot=native-select] { font-size:16px; }
+  .filters-row [data-slot=native-select-wrapper] { min-width:0; }
+  .intro-logo-wrap { width:min(350px,76vw,48dvh); }
+  .intro-title h1 { font-size:clamp(32px,10.5vw,60px); }
+  .hero h1 { font-size:clamp(38px,12vw,68px); }
+  .contact-inner h2 { font-size:clamp(38px,11vw,60px); }
+  .participation-card h2 { font-size:clamp(30px,9vw,39px); }
+  .eyebrow { letter-spacing:.12em; font-size:10px; }
+}
+@media (max-height:500px) {
+  .intro-logo-wrap { width:min(180px,32dvh); }
+  .intro-title { margin-top:0; }
+  .intro-title h1 { font-size:32px; }
+  .enter-button { margin-top:16px; }
+}
+
+/* Second welcome cover: preserve the complete supplied group illustration. */
+.community-cover { position:fixed; inset:0; z-index:100; height:100dvh; overflow-y:auto; overscroll-behavior:contain; color:#edf4ff; background:radial-gradient(ellipse at 85% 0%,rgba(99,58,158,.2),transparent 45%),#030c1d; }
+.community-cover-inner { width:min(1200px,calc(100% - 64px)); margin:auto; padding:30px 0 max(28px,env(safe-area-inset-bottom)); }
+.community-topline { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding-bottom:22px; border-bottom:1px solid rgba(216,173,80,.28); color:#9dafc8; font-size:10px; letter-spacing:.17em; }
+.community-topline span:last-child { color:#dfbd72; }
+.community-introduction { display:grid; grid-template-columns:1.1fr 1fr; gap:48px; align-items:center; padding:32px 0 24px; }
+.community-introduction > * { min-width:0; }
+.community-kicker { margin:0 0 16px; color:#68d9e9; font-size:10px; font-weight:700; letter-spacing:.16em; }
+.community-introduction h1 { margin:0; font-size:clamp(32px,3.8vw,52px); letter-spacing:-.045em; line-height:1.08; }
+.community-introduction h1 span { color:#e8c77f; }
+.community-introduction h1:focus { outline:none; }
+.community-description p { margin:0; color:#b9c9dd; font-size:15px; line-height:1.75; }
+.community-description p + p { margin-top:12px; }
+.community-portrait { margin:0; }
+.community-portrait img { display:block; width:100%; height:auto; border-radius:18px; border:1px solid rgba(137,171,204,.18); }
+.community-portrait figcaption { padding:10px 0; color:#859ab5; text-align:center; font-size:11px; line-height:1.5; }
+.community-bottomline { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; padding-top:16px; }
+.community-bottomline > p { margin:0; font-family:Georgia,serif; font-style:italic; color:#d8c398; font-size:16px; }
+.community-controls { display:flex; align-items:center; gap:24px; }
+.community-controls .enter-button { margin-top:0; }
+.community-back { min-height:44px; border:0; color:#a5b8d1; background:transparent; font-size:12px; cursor:pointer; }
+.community-back:hover { color:white; }
+@media (max-width:760px) {
+  .community-cover-inner { width:calc(100% - 36px); padding-top:22px; }
+  .community-topline { font-size:8px; letter-spacing:.11em; padding-bottom:18px; }
+  .community-introduction { grid-template-columns:minmax(0,1fr); gap:20px; padding:26px 0 22px; }
+  .community-introduction h1 { font-size:clamp(30px,8vw,48px); }
+  .community-description p { font-size:14px; }
+  .community-kicker { font-size:9px; letter-spacing:.09em; }
+  .community-portrait { margin-inline:-10px; }
+  .community-portrait img { border-radius:12px; }
+  .community-bottomline { justify-content:center; text-align:center; gap:18px; }
+  .community-bottomline > p { font-size:14px; }
+  .community-controls { width:100%; flex-direction:column-reverse; gap:8px; }
+  .community-controls .enter-button { width:100%; justify-content:center; font-size:14px; }
+}
+@media (min-width:761px) {
+  .community-portrait img { width:auto; max-width:100%; max-height:46dvh; margin-inline:auto; }
+}
+
+/* Frame the supplied photographs without altering the original files. */
+.member-photo.portrait-cynthia img,.profile-photo.portrait-cynthia img { height:129%; object-position:center top; }
+.member-photo.portrait-karen img,.profile-photo.portrait-karen img { object-position:85% 55%; }
+@media (max-width:760px) {
+  .profile-photo { height:auto; width:min(100%,300px); aspect-ratio:4/5; margin-inline:auto; }
+  .profile-content .about p { white-space:pre-line; }
+}

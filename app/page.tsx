@@ -4,9 +4,9 @@ import Image from 'next/image';
 import {
   ArrowDownRight, ArrowRight, BriefcaseBusiness, Check, ChevronDown,
   Compass, ExternalLink, Filter, GraduationCap, Link2, MapPin, Menu,
-  MessageCircle, RotateCcw, Search, Sparkles, Users, X,
+  Mail, MessageCircle, RotateCcw, Search, Sparkles, Users, X,
 } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -39,10 +39,17 @@ function initials(name: string) {
   return name.split(' ').filter(Boolean).slice(0, 2).map((part) => part[0]).join('');
 }
 
+function emailContactLink(member: Member) {
+  if (!member.email) return '';
+  const subject = 'Contacto desde el directorio de Casa Altair';
+  const body = `Hola ${member.nombre},\n\nConocí tu perfil a través del directorio profesional de Casa Altair – Club Equilibria 360 y me gustaría ponerme en contacto contigo.\n\nSaludos.`;
+  return `mailto:${member.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 function MemberPhoto({ member, large = false }: { member: Member; large?: boolean }) {
   const [failed, setFailed] = useState(false);
   return (
-    <div className={large ? 'profile-photo' : 'member-photo'}>
+    <div className={[large ? 'profile-photo' : 'member-photo', member.fotoClase].filter(Boolean).join(' ')}>
       <span aria-hidden="true">{initials(member.nombre)}</span>
       {!failed && <img src={member.foto} alt={`Fotografía profesional de ${member.nombre}`} loading={large ? 'eager' : 'lazy'} onError={() => setFailed(true)} />}
     </div>
@@ -54,7 +61,7 @@ function MemberCard({ member, onOpen }: { member: Member; onOpen: () => void }) 
     <article className="member-card">
       <MemberPhoto member={member} />
       <div className="member-meta">
-        <span>{member.rolesProyecto[0]}</span>
+        <span>{member.rolesProyecto[0] || 'Integrante de Casa Altair'}</span>
         <h3>{member.nombre}</h3>
         <p>{member.profesion}</p>
         <small>{member.especialidad}</small>
@@ -88,7 +95,10 @@ function Filters({ profession, specialty, role, setProfession, setSpecialty, set
 }
 
 export default function Home() {
+  const profileDialogRef = useRef<HTMLDivElement>(null);
   const [showIntro, setShowIntro] = useState(true);
+  const [introStep, setIntroStep] = useState<'crest' | 'community'>('crest');
+  const communityTitleRef = useRef<HTMLHeadingElement>(null);
   const [introLeaving, setIntroLeaving] = useState(false);
   const [query, setQuery] = useState('');
   const [profession, setProfession] = useState('');
@@ -101,7 +111,7 @@ export default function Home() {
   const filtered = useMemo(() => {
     const term = query.toLocaleLowerCase('es').trim();
     return members.filter((member) => {
-      const searchable = [member.nombre, member.profesion, member.especialidad, member.cargo, ...member.areas, ...member.rolesProyecto].join(' ').toLocaleLowerCase('es');
+      const searchable = [member.nombre, member.profesion, member.especialidad, member.cargo, member.ciudad, member.empresa, ...member.areas, ...member.rolesProyecto].join(' ').toLocaleLowerCase('es');
       return (!term || searchable.includes(term)) && (!profession || member.profesion === profession) && (!specialty || member.especialidad === specialty) && (!role || member.rolesProyecto.includes(role));
     });
   }, [query, profession, specialty, role]);
@@ -121,6 +131,10 @@ export default function Home() {
     document.body.style.overflow = showIntro ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [showIntro]);
+
+  useEffect(() => {
+    if (introStep === 'community') communityTitleRef.current?.focus({ preventScroll: true });
+  }, [introStep]);
 
   useEffect(() => {
     const context = document.modelContext;
@@ -152,7 +166,7 @@ export default function Home() {
         const nextRole = values.projectRole ?? '';
         if (!valid(nextProfession, professions) || !valid(nextSpecialty, specialties) || !valid(nextRole, projectRoles)) throw new Error('Uno de los filtros no es válido.');
         const resultCount = members.filter((member) => {
-          const searchable = [member.nombre, member.profesion, member.especialidad, member.cargo, ...member.areas, ...member.rolesProyecto].join(' ').toLocaleLowerCase('es');
+          const searchable = [member.nombre, member.profesion, member.especialidad, member.cargo, member.ciudad, member.empresa, ...member.areas, ...member.rolesProyecto].join(' ').toLocaleLowerCase('es');
           return (!nextQuery || searchable.includes(nextQuery.toLocaleLowerCase('es'))) && (!nextProfession || member.profesion === nextProfession) && (!nextSpecialty || member.especialidad === nextSpecialty) && (!nextRole || member.rolesProyecto.includes(nextRole as string));
         }).length;
         setQuery(nextQuery);
@@ -169,19 +183,32 @@ export default function Home() {
 
   return (
     <>
-      {showIntro && (
+      {showIntro && introStep === 'crest' && (
         <section className={introLeaving ? 'intro-cover intro-cover-leaving' : 'intro-cover'} aria-label="Portada de Casa Altair">
           <div className="intro-stars" aria-hidden="true"><i /><i /><i /><i /><i /></div>
           <div className="intro-orbit intro-orbit-one" aria-hidden="true" /><div className="intro-orbit intro-orbit-two" aria-hidden="true" />
           <div className="intro-cover-content">
             <div className="intro-logo-wrap"><div className="intro-logo-glow" /><Image src="/casa-altair-logo.png" alt="Logo oficial de Casa Altair" fill priority sizes="(max-width: 700px) 74vw, 420px" /></div>
             <div className="intro-title"><span>CLUB EQUILIBRIA 360 PRESENTA</span><h1>CASA ALTAIR</h1><p>Observamos más lejos para decidir mejor.</p></div>
-            <button className="enter-button" onClick={enterSite}>Entrar a la experiencia <ArrowRight size={19} /></button>
+            <button className="enter-button" onClick={() => setIntroStep('community')}>Entrar a la experiencia <ArrowRight size={19} /></button>
             <small className="intro-hint">Conoce al equipo que convirtió conocimiento en una solución</small>
           </div>
         </section>
       )}
-      <main className={showIntro ? 'site-content site-behind-cover' : 'site-content site-entered'} aria-hidden={showIntro}>
+      {showIntro && introStep === 'community' && (
+        <section className={`community-cover${introLeaving ? ' intro-cover-leaving' : ''}`} aria-labelledby="community-title">
+          <div className="community-cover-inner">
+            <div className="community-topline"><span>CLUB EQUILIBRIA 360 · CASA ALTAIR</span><span>02 / BIENVENIDOS</span></div>
+            <div className="community-introduction">
+              <div><p className="community-kicker">DISTINTAS MIRADAS. UNA MISMA VISIÓN.</p><h1 id="community-title" ref={communityTitleRef} tabIndex={-1}>Una casa que une.<br /><span>Un equipo que transforma.</span></h1></div>
+              <div className="community-description"><p>Casa Altair es nuestro punto de encuentro: una comunidad de profesionales y estudiantes que reúne distintas experiencias para aprender, investigar y construir soluciones en conjunto.</p><p>Este espacio te invita a conocer a sus integrantes, descubrir sus especialidades y aportes al proyecto, y crear nuevas conexiones profesionales.</p></div>
+            </div>
+            <figure className="community-portrait"><Image src="/casa-altair-equipo-avatares.png" alt="Ilustración del equipo de Casa Altair: nueve avatares con cascos y chalecos verdes" width={1672} height={941} sizes="(max-width: 760px) 100vw, 1200px" priority /><figcaption>Nuestros avatares, una expresión de nuestra identidad como equipo.</figcaption></figure>
+            <div className="community-bottomline"><p>“Observamos más lejos para decidir mejor.”</p><div className="community-controls"><button className="community-back" onClick={() => setIntroStep('crest')} disabled={introLeaving}>Volver al escudo</button><button className="enter-button" onClick={enterSite} disabled={introLeaving}>Conocer al equipo <ArrowRight size={19} /></button></div></div>
+          </div>
+        </section>
+      )}
+      <main className={showIntro ? 'site-content site-behind-cover' : 'site-content site-entered'} aria-hidden={showIntro} inert={showIntro}>
       <header className="site-header">
         <a className="brand" href="#inicio" aria-label="Casa Altair, inicio"><span className="brand-logo"><Image src="/casa-altair-logo.png" alt="" width={42} height={42} /></span><span><strong>CASA ALTAIR</strong><small>CLUB EQUILIBRIA 360</small></span></a>
         <nav className="desktop-nav" aria-label="Navegación principal">{navItems.map(([label, href]) => <a key={href} href={href}>{label}</a>)}</nav>
@@ -211,7 +238,7 @@ export default function Home() {
 
       <footer><div className="footer-brand"><span className="footer-logo"><Image src="/casa-altair-logo.png" alt="Logo de Casa Altair" width={54} height={54} /></span><div><strong>CLUB EQUILIBRIA 360</strong><span>CASA ALTAIR</span></div></div><div className="footer-quote">“Observamos más lejos para decidir mejor.”<small>ANÁLISIS · INVESTIGACIÓN · ESTRATEGIA</small></div><p>© 2026 Club Equilibria 360 – Casa Altair</p></footer>
 
-      <Dialog open={!!selectedMember} onOpenChange={(open) => !open && setSelectedMember(null)}>{selectedMember && <DialogContent className="profile-dialog"><div className="profile-sidebar"><MemberPhoto member={selectedMember} large /><div className="profile-location"><MapPin size={15} /> {selectedMember.ciudad}</div></div><div className="profile-content"><DialogHeader><div className="profile-eyebrow">PERFIL PROFESIONAL · CASA ALTAIR</div><DialogTitle>{selectedMember.nombre}</DialogTitle><DialogDescription>{selectedMember.profesion} · {selectedMember.especialidad}</DialogDescription></DialogHeader><div className="profile-facts"><div><GraduationCap /><span>Grado académico<strong>{selectedMember.grado}</strong></span></div><div><BriefcaseBusiness /><span>Cargo actual<strong>{selectedMember.cargo}</strong><small>{selectedMember.empresa}</small></span></div><div><Compass /><span>Experiencia<strong>{selectedMember.experiencia}</strong></span></div></div><section className="about"><h3>Sobre mí</h3><p>{selectedMember.perfil}</p></section><section><h3>Áreas de experiencia</h3><div className="chips">{selectedMember.areas.map((area) => <span key={area}>{area}</span>)}</div></section><section className="project-contribution"><span>Mi participación en el proyecto</span><div className="chips role-chips">{selectedMember.rolesProyecto.map((item) => <span key={item}><Check size={12} /> {item}</span>)}</div><p>{selectedMember.aporteProyecto}</p></section><div className="profile-actions">{selectedMember.cv && <a href={selectedMember.cv} target="_blank" rel="noreferrer"><ExternalLink /> Ver CV</a>}{selectedMember.linkedin && <a href={selectedMember.linkedin} target="_blank" rel="noreferrer"><Link2 /> LinkedIn</a>}{selectedMember.autorizaContacto && selectedMember.whatsapp && <a className="whatsapp" href={`https://wa.me/${selectedMember.whatsapp}?text=${encodeURIComponent(`Hola ${selectedMember.nombre}, conocí tu perfil a través del proyecto de Casa Altair – Club Equilibria 360 y me gustaría ponerme en contacto contigo.`)}`} target="_blank" rel="noreferrer"><MessageCircle /> Contactar por WhatsApp</a>}</div></div></DialogContent>}</Dialog>
+      <Dialog open={!!selectedMember} onOpenChange={(open) => !open && setSelectedMember(null)}>{selectedMember && <DialogContent ref={profileDialogRef} initialFocus={profileDialogRef} className="profile-dialog"><div className="profile-sidebar"><MemberPhoto member={selectedMember} large /><div className="profile-location"><MapPin size={15} /> {selectedMember.ciudad}</div></div><div className="profile-content"><DialogHeader><div className="profile-eyebrow">PERFIL PROFESIONAL · CASA ALTAIR</div><DialogTitle>{selectedMember.nombre}</DialogTitle><DialogDescription>{selectedMember.profesion} · {selectedMember.especialidad}</DialogDescription></DialogHeader><div className="profile-facts"><div><GraduationCap /><span>Grado académico<strong>{selectedMember.grado}</strong></span></div>{(selectedMember.cargo || selectedMember.empresa) && <div><BriefcaseBusiness /><span>Cargo actual<strong>{selectedMember.cargo}</strong><small>{selectedMember.empresa}</small></span></div>}{selectedMember.experiencia && <div><Compass /><span>Experiencia<strong>{selectedMember.experiencia}</strong></span></div>}</div><section className="about"><h3>Sobre mí</h3><p>{selectedMember.perfil}</p></section><section><h3>Áreas de experiencia</h3><div className="chips">{selectedMember.areas.map((area) => <span key={area}>{area}</span>)}</div></section>{(selectedMember.rolesProyecto.length > 0 || selectedMember.aporteProyecto) && <section className="project-contribution"><span>Mi participación en el proyecto</span><div className="chips role-chips">{selectedMember.rolesProyecto.map((item) => <span key={item}><Check size={12} /> {item}</span>)}</div><p>{selectedMember.aporteProyecto}</p></section>}<div className="profile-actions">{selectedMember.autorizaContacto && selectedMember.email && <a href={emailContactLink(selectedMember)} aria-label={`Enviar correo a ${selectedMember.nombre}`}><Mail /> Contactar por correo</a>}{selectedMember.cv && <a href={selectedMember.cv} target="_blank" rel="noreferrer"><ExternalLink /> Ver CV</a>}{selectedMember.linkedin && <a href={selectedMember.linkedin} target="_blank" rel="noreferrer"><Link2 /> LinkedIn</a>}{selectedMember.autorizaContacto && selectedMember.whatsapp && <a className="whatsapp" href={`https://wa.me/${selectedMember.whatsapp}?text=${encodeURIComponent(`Hola ${selectedMember.nombre}, conocí tu perfil a través del proyecto de Casa Altair – Club Equilibria 360 y me gustaría ponerme en contacto contigo.`)}`} target="_blank" rel="noreferrer"><MessageCircle /> Contactar por WhatsApp</a>}</div></div></DialogContent>}</Dialog>
       </main>
     </>
   );
