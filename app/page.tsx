@@ -123,7 +123,8 @@ export default function Home() {
     setIntroLeaving(true);
     window.setTimeout(() => {
       setShowIntro(false);
-      document.getElementById('inicio')?.scrollIntoView({ behavior: 'auto' });
+      const target = window.location.hash.slice(1) || 'inicio';
+      document.getElementById(target)?.scrollIntoView({ behavior: 'auto' });
     }, 700);
   };
 
