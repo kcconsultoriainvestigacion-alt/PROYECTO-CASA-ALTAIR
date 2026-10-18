@@ -189,7 +189,12 @@ export default function Home() {
           <div className="intro-stars" aria-hidden="true"><i /><i /><i /><i /><i /></div>
           <div className="intro-orbit intro-orbit-one" aria-hidden="true" /><div className="intro-orbit intro-orbit-two" aria-hidden="true" />
           <div className="intro-cover-content">
-            <div className="intro-logo-wrap"><div className="intro-logo-glow" /><Image src="/casa-altair-logo.png" alt="Logo oficial de Casa Altair" fill priority sizes="(max-width: 700px) 74vw, 420px" /></div>
+            <div className="intro-video-wrap">
+              <video className="intro-video" controls playsInline preload="metadata" poster="/casa-altair-logo.png" aria-label="Video de presentación de Casa Altair">
+                <source src="/presentacion-casa-altair.mp4" type="video/mp4" />
+                Tu navegador no puede reproducir este video.
+              </video>
+            </div>
             <div className="intro-title"><span>CLUB EQUILIBRIA 360 PRESENTA</span><h1>CASA ALTAIR</h1><p>Observamos más lejos para decidir mejor.</p></div>
             <div className="intro-award">✦ Primera casa ganadora · Temporada 1, 2026</div>
             <button className="enter-button" onClick={() => setIntroStep('community')}>Entrar a la experiencia <ArrowRight size={19} /></button>
