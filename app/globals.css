@@ -189,6 +189,17 @@ footer { padding:46px max(20px,calc((100% - 1180px)/2)); display:grid; grid-temp
 .intro-award { margin-top:19px; padding:10px 15px; text-align:center; }
 .hero-award { margin-top:23px; padding:10px 14px; transition:background .2s ease,transform .2s ease; }
 .hero-award:hover { background:rgba(214,163,59,.2); transform:translateY(-2px); }
+.additional-cvs { margin-top:76px; padding-top:42px; border-top:1px solid rgba(216,173,80,.35); }
+.additional-cvs h3 { margin:10px 0 8px; color:#fff; font-size:clamp(28px,4vw,38px); }
+.additional-cvs > p { margin:0 0 26px; color:#c1d0e5; line-height:1.6; }
+.additional-cv-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; }
+.additional-cv-card { min-width:0; min-height:205px; padding:22px; display:flex; flex-direction:column; border:1px solid rgba(215,181,103,.42); border-radius:18px; background:linear-gradient(150deg,#fff,#f2f5fc); }
+.additional-cv-avatar { width:48px; height:48px; display:grid; place-items:center; border-radius:14px; color:#fff; background:linear-gradient(135deg,#13b4d5,#3265d9,#7b35dc); font-weight:800; }
+.additional-cv-card h4 { margin:15px 0 18px; color:#14223d; font-size:17px; line-height:1.3; }
+.additional-cv-card a { margin-top:auto; padding-top:14px; display:flex; align-items:center; justify-content:space-between; gap:10px; border-top:1px solid #dce5f0; color:#155fc8; font-weight:700; }
+.additional-cv-card a:hover { color:#7543cb; }
+@media (max-width:1020px) { .additional-cv-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:600px) { .additional-cvs { margin-top:56px; }.additional-cv-grid { grid-template-columns:1fr; }.additional-cv-card { min-height:180px; } }
 .recognition-section { scroll-margin-top:76px; padding:98px 20px 92px; overflow:hidden; color:#f6f3e9; background:radial-gradient(circle at 80% 8%,rgba(114,57,162,.3),transparent 35%),linear-gradient(140deg,#07152f,#101537 72%,#07152f); }
 .recognition-inner { width:min(1220px,100%); margin:auto; display:grid; grid-template-columns:minmax(300px,.78fr) minmax(0,1.22fr); align-items:center; gap:clamp(30px,5vw,74px); }
 .recognition-copy .section-kicker { color:#e8bd6e; }

@@ -15,6 +15,12 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTi
 import { members, professions, projectRoles, specialties, type Member } from '@/lib/members';
 
 const stages = ['Investigación', 'Análisis', 'Diseño', 'Desarrollo', 'Validación', 'Implementación'];
+const additionalCvs = [
+  { name: 'Lourdes Suna Alagon', url: 'https://ai.studio/apps/01362c0d-05f6-4f1f-ba35-6e1439b82136' },
+  { name: 'Alexander Bernardo Herrera Cari', url: 'https://cv-web-alexander-c62lo4xnf-alexanderkalman-3.vercel.app/' },
+  { name: 'Katherinne Quispe Zambrano', url: 'https://katherinne-quispe-zambrano-ingenier-a-ambiental-s.ai.studio' },
+  { name: 'Daniel Jaime Uribe', url: 'https://daniel-cv-rho.vercel.app/' },
+];
 const navItems = [
   ['Inicio', '#inicio'], ['Reconocimiento', '#reconocimiento'], ['Equipo', '#equipo'], ['Proyecto', '#proyecto'],
   ['Nuestra participación', '#participacion'], ['Contacto', '#contacto'],
@@ -240,6 +246,7 @@ export default function Home() {
         <div className="search-and-filter"><label className="search-box"><Search size={20} /><Input value={query} onChange={(event) => { setQuery(event.target.value); setVisibleCount(8); }} placeholder="Buscar integrante por nombre, profesión o especialidad..." aria-label="Buscar integrantes" />{query && <button onClick={() => setQuery('')} aria-label="Borrar búsqueda"><X size={17} /></button>}</label><Button variant="outline" className="mobile-filter-button" onClick={() => setFiltersOpen(!filtersOpen)} aria-expanded={filtersOpen}><Filter /> Filtros <ChevronDown className={filtersOpen ? 'rotate' : ''} /></Button></div>
         <div className={filtersOpen ? 'filters-panel open' : 'filters-panel'}><Filters profession={profession} specialty={specialty} role={role} setProfession={setProfession} setSpecialty={setSpecialty} setRole={setRole} clear={clearFilters} /></div>
         {filtered.length ? <><div className="member-grid">{filtered.slice(0, visibleCount).map((member) => <MemberCard key={member.id} member={member} onOpen={() => setSelectedMember(member)} />)}</div>{visibleCount < filtered.length && <div className="load-more"><Button onClick={() => setVisibleCount((count) => count + 8)}>Ver más integrantes <ArrowDownRight /></Button></div>}</> : <div className="empty-state"><Search /><h3>No encontramos coincidencias</h3><p>Prueba con otro nombre, profesión o especialidad.</p><Button variant="outline" onClick={clearFilters}>Limpiar búsqueda</Button></div>}
+        <div className="additional-cvs"><div className="section-kicker">Más integrantes</div><h3>CV digitales</h3><p>Conoce a estos integrantes directamente a través de sus páginas de CV.</p><div className="additional-cv-grid">{additionalCvs.map(({ name, url }) => <article className="additional-cv-card" key={name}><div className="additional-cv-avatar" aria-hidden="true">{initials(name)}</div><h4>{name}</h4><a href={url} target="_blank" rel="noopener noreferrer" aria-label={`Ver CV digital de ${name}`}>Ver CV digital <ExternalLink size={17} /></a></article>)}</div></div>
       </section>
 
       <section className="stats-section" aria-label="Estadísticas del equipo"><div className="stats-grid"><div><strong>{members.length}</strong><span>Perfiles publicados</span></div><div><strong>{new Set(members.map((member) => member.profesion)).size}</strong><span>Profesiones</span></div><div><strong>{uniqueAreas}</strong><span>Áreas de experiencia</span></div><div><strong>1</strong><span>Visión compartida</span></div></div></section>
