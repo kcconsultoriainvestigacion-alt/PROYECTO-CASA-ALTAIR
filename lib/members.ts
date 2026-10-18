@@ -25,6 +25,7 @@ export const members: Member[] = [
   {
     id: 1,
     nombre: 'Samantha I. Chambergo Colona',
+    cv: 'https://ing-samantha-i-chambergo-colona-portafolio-profes.ai.studio',
     profesion: 'Ingeniera Industrial',
     grado: 'Doctorado en curso',
     especialidad: 'Seguridad y Salud en el Trabajo',
@@ -43,6 +44,7 @@ export const members: Member[] = [
   {
     id: 2,
     nombre: 'Alexander Guizado Tarco',
+    cv: 'https://alexander-guizado-tarco-8w65.vercel.app/',
     profesion: 'Ingeniero Ambiental',
     grado: 'Profesional titulado',
     especialidad: 'Gestión y evaluación ambiental',
@@ -61,6 +63,7 @@ export const members: Member[] = [
   {
     id: 3,
     nombre: 'Keissy Marita Siviruero Regalado',
+    cv: 'https://keissy-siviruero-portafolio.kcconsultoriainvesti.chatgpt.site/',
     profesion: 'Ingeniera Ambiental',
     grado: 'Bachiller',
     especialidad: 'Asesoría de proyectos de investigación ambiental',
@@ -80,6 +83,7 @@ export const members: Member[] = [
   {
     id: 4,
     nombre: 'Guillermo Arturo Alvarez Begazo',
+    cv: 'https://guillermo-arturo-alvarez-begazo-cv-digital.ai.studio',
     profesion: 'Ingeniero Industrial',
     grado: 'Profesional titulado',
     especialidad: 'Gestión Ambiental',
@@ -100,6 +104,7 @@ export const members: Member[] = [
   {
     id: 5,
     nombre: 'Luciano Julián Sarmiento Ramos',
+    cv: 'https://web-cv-luciano-sarmiento.vercel.app/',
     profesion: 'Ingeniero Ambiental',
     grado: 'Bachiller',
     especialidad: 'Gestión pública ambiental',
@@ -120,6 +125,7 @@ export const members: Member[] = [
   {
     id: 6,
     nombre: 'Miluska Jazmin Navio Aquino',
+    cv: 'https://miluskanaviocv.vercel.app/',
     profesion: 'Ingeniera Ambiental',
     grado: 'Bachiller',
     especialidad: 'Gestión del Riesgo de Desastres',
@@ -139,6 +145,7 @@ export const members: Member[] = [
   {
     id: 7,
     nombre: 'Edwin Wilberto Balcazar Ullilén',
+    cv: 'https://edwin-balcazar-ingeniero-auditor-de-calidad-alime.ai.studio/',
     profesion: 'Industrias Alimentarias',
     grado: 'Bachiller',
     especialidad: 'Inspección y calidad alimentaria',
@@ -159,6 +166,7 @@ export const members: Member[] = [
   {
     id: 8,
     nombre: 'Elsy Melina Malpartida Carhuaz',
+    cv: 'https://portafolio-green-rho-rose.vercel.app/',
     profesion: 'Ingeniera Ambiental',
     grado: 'Bachiller',
     especialidad: 'Gestión Ambiental',
@@ -178,6 +186,7 @@ export const members: Member[] = [
   {
     id: 9,
     nombre: 'Tomas Felix Alata Fernandez',
+    cv: 'https://cv-tomas-alata.vercel.app/',
     profesion: 'Ingeniero Químico',
     grado: 'Profesional titulado',
     especialidad: 'Operaciones y medio ambiente',
@@ -198,6 +207,7 @@ export const members: Member[] = [
   {
     "id": 10,
     "nombre": "Gabriela Paola Velarde Espinoza",
+    "cv": "https://gabriela-velarde-cv-interactivo-ingeniera-ambient.ai.studio",
     "profesion": "Ingeniera Ambiental",
     "grado": "Profesional titulado",
     "especialidad": "Seguridad, Salud Ocupacional y Medio Ambiente",
@@ -300,6 +310,7 @@ export const members: Member[] = [
   {
     "id": 14,
     "nombre": "José Luis Fernando Lara Soto",
+    "cv": "https://cv-luis-fernando-lara-soto.vercel.app/",
     "profesion": "Ingeniería Forestal y Ambiental",
     "grado": "Bachiller",
     "especialidad": "Gestión Ambiental",
@@ -380,6 +391,7 @@ export const members: Member[] = [
   {
     id: 17,
     nombre: 'Amelia Devorah Arias Durand',
+    cv: 'https://cv-profesional-mg-devorah-arias-ingeniera-qu-mica.ai.studio',
     profesion: 'Ingeniera Química',
     grado: 'Maestría',
     especialidad: 'Investigación ambiental y docencia',
@@ -418,6 +430,7 @@ export const members: Member[] = [
   {
     id: 19,
     nombre: 'Gladis Castillo Rueda',
+    cv: 'https://cv-gladis-castillo-rueda-web.vercel.app/',
     profesion: 'Ingeniera Química',
     grado: 'Maestría',
     especialidad: 'Industria alimentaria y medio ambiente',
@@ -437,6 +450,7 @@ export const members: Member[] = [
   {
     id: 20,
     nombre: 'Judith Cayao Berrú',
+    cv: 'https://judithcayao.vercel.app/',
     profesion: 'Ingeniera Ambiental',
     grado: 'Bachiller',
     especialidad: 'Sostenibilidad ambiental',
