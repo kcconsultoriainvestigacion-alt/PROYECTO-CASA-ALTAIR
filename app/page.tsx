@@ -49,9 +49,9 @@ function emailContactLink(member: Member) {
 function MemberPhoto({ member, large = false }: { member: Member; large?: boolean }) {
   const [failed, setFailed] = useState(false);
   return (
-    <div className={[large ? 'profile-photo' : 'member-photo', member.fotoClase].filter(Boolean).join(' ')}>
+    <div className={[large ? 'profile-photo' : 'member-photo', member.fotoClase, !member.foto && 'photo-pending'].filter(Boolean).join(' ')}>
       <span aria-hidden="true">{initials(member.nombre)}</span>
-      {!failed && <img src={member.foto} alt={`Fotografía profesional de ${member.nombre}`} loading={large ? 'eager' : 'lazy'} onError={() => setFailed(true)} />}
+      {member.foto && !failed && <img src={member.foto} alt={`Fotografía profesional de ${member.nombre}`} loading={large ? 'eager' : 'lazy'} onError={() => setFailed(true)} />}
     </div>
   );
 }

@@ -176,6 +176,8 @@ footer { padding:46px max(20px,calc((100% - 1180px)/2)); display:grid; grid-temp
 /* Frame the supplied photographs without altering the original files. */
 .member-photo.portrait-cynthia img,.profile-photo.portrait-cynthia img { height:129%; object-position:center top; }
 .member-photo.portrait-karen img,.profile-photo.portrait-karen img { object-position:85% 55%; }
+.member-photo.photo-pending,.profile-photo.photo-pending { color:#193d6d; background:linear-gradient(145deg,#fff 20%,#f1f5fa 100%); }
+.member-photo.photo-pending span,.profile-photo.photo-pending span { width:34%; aspect-ratio:1; display:grid; place-items:center; border:2px solid #d9ae49; border-radius:50%; background:#f8fbff; letter-spacing:.04em; box-shadow:0 10px 28px rgba(23,58,103,.12); }
 @media (max-width:760px) {
   .profile-photo { height:auto; width:min(100%,300px); aspect-ratio:4/5; margin-inline:auto; }
   .profile-content .about p { white-space:pre-line; }
