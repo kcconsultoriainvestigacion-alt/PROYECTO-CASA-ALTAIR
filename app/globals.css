@@ -178,6 +178,26 @@ footer { padding:46px max(20px,calc((100% - 1180px)/2)); display:grid; grid-temp
 .member-photo.portrait-karen img,.profile-photo.portrait-karen img { object-position:85% 55%; }
 .member-photo.photo-pending,.profile-photo.photo-pending { color:#193d6d; background:linear-gradient(145deg,#fff 20%,#f1f5fa 100%); }
 .member-photo.photo-pending span,.profile-photo.photo-pending span { width:34%; aspect-ratio:1; display:grid; place-items:center; border:2px solid #d9ae49; border-radius:50%; background:#f8fbff; letter-spacing:.04em; box-shadow:0 10px 28px rgba(23,58,103,.12); }
+.intro-award,.hero-award { display:inline-flex; align-items:center; gap:9px; width:fit-content; border:1px solid rgba(228,187,91,.55); border-radius:999px; color:#f8dc91; background:rgba(214,163,59,.11); font-size:11px; font-weight:800; letter-spacing:.045em; }
+.intro-cover .intro-logo-wrap { width:min(310px,57vw,42dvh); }
+.intro-award { margin-top:19px; padding:10px 15px; text-align:center; }
+.hero-award { margin-top:23px; padding:10px 14px; transition:background .2s ease,transform .2s ease; }
+.hero-award:hover { background:rgba(214,163,59,.2); transform:translateY(-2px); }
+.recognition-section { scroll-margin-top:76px; padding:98px 20px 92px; overflow:hidden; color:#f6f3e9; background:radial-gradient(circle at 80% 8%,rgba(114,57,162,.3),transparent 35%),linear-gradient(140deg,#07152f,#101537 72%,#07152f); }
+.recognition-inner { width:min(1220px,100%); margin:auto; display:grid; grid-template-columns:minmax(300px,.78fr) minmax(0,1.22fr); align-items:center; gap:clamp(30px,5vw,74px); }
+.recognition-copy .section-kicker { color:#e8bd6e; }
+.recognition-copy h2 { margin:17px 0 22px; font-size:clamp(36px,4.6vw,62px); line-height:1.02; letter-spacing:-.045em; }
+.recognition-copy h2 span { display:block; color:#e7bc68; }
+.recognition-copy p { max-width:480px; color:#ccd7e8; font-size:16px; line-height:1.7; }
+.recognition-copy strong { color:#fff1cc; }
+.recognition-copy a { display:inline-flex; align-items:center; gap:9px; margin-top:16px; padding-bottom:6px; border-bottom:1px solid #e7bc68; color:#f3d388; font-weight:800; font-size:14px; }
+.recognition-art { min-width:0; margin:0; }
+.recognition-art img { width:100%; height:auto; display:block; border:1px solid rgba(241,198,107,.62); border-radius:18px; box-shadow:0 26px 58px rgba(0,0,0,.4); }
+.recognition-art figcaption { padding-top:12px; color:#aebed7; text-align:center; font-size:12px; }
+.recognition-diploma { width:min(700px,100%); margin:64px auto 0; text-align:center; }
+.recognition-diploma img { width:100%; height:auto; display:block; border:1px solid rgba(241,198,107,.5); border-radius:10px; box-shadow:0 18px 38px rgba(0,0,0,.25); }
+.recognition-diploma p { margin:12px 0 0; color:#aebed7; font-size:12px; }
+@media (max-width:760px) { .intro-award { max-width:95%; font-size:10px; line-height:1.35; }.hero-award { font-size:10px; line-height:1.35; }.recognition-section { padding:72px 18px; scroll-margin-top:68px; }.recognition-inner { grid-template-columns:minmax(0,1fr); gap:30px; }.recognition-copy h2 { font-size:clamp(36px,10vw,48px); }.recognition-copy p { font-size:15px; }.recognition-diploma { margin-top:48px; } }
 @media (max-width:760px) {
   .profile-photo { height:auto; width:min(100%,300px); aspect-ratio:4/5; margin-inline:auto; }
   .profile-content .about p { white-space:pre-line; }
